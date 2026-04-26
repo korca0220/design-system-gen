@@ -35,12 +35,16 @@ Phase 1로 들어가기 전에, 결과물 디렉토리의 베이스 구조를 [`
 이후 Phase 2/3에서 실제 `foundations/00-*.md`와 `components/NN-*.md`를 채워 넣습니다.
 
 ### Phase 1A: HTML/CSS 기반 브랜드 아이덴티티 및 토큰 분석 (Discovery)
-입력된 HTML/CSS나 디자인 설명에서 고유한 브랜드 아이덴티티와 디자인 패턴을 식별합니다.
-- **브랜드 아이덴티티 정의**: 입력값에서 가장 지배적인 핵심 컬러(Key Color), 전체적인 디자인 무드(예: 미니멀, 사이버펑크, 따뜻함 등), 그리고 톤앤매너를 먼저 정의합니다.
-- **색상**: 주요 배경색, 텍스트 색상, 보더 색상을 추출하고 브랜드 컬러와의 연관성을 분석합니다.
-- **타이포그래피**: 폰트 종류, 굵기(Weight), 크기(Size), 줄 높이(Line Height)를 식별합니다.
-- **간격/레이아웃**: 패딩, 마진, 그리드 간격을 분석합니다.
-- **기타**: 보더 반경(Border Radius), 그림자(Shadow), 애니메이션/모션 패턴을 기록합니다.
+입력된 HTML/CSS나 디자인 설명에서 고유한 브랜드 아이덴티티와 디자인 패턴을 식별합니다. **구체적 추출 규칙은 [references/heuristics_html_css.md](references/heuristics_html_css.md)에 정의되어 있으며, Phase 1A는 그 문서를 따라 진행합니다.**
+
+요약:
+- **브랜드 키 컬러 식별**: 빈도 + 채도 + 위치(CTA/링크/활성) 가중치로 단 하나의 키 컬러 결정
+- **색상 군집화**: 6개 카테고리(Brand/Neutral/Surface/Success/Warning/Danger), ΔE < 5 또는 HSL 거리 기준으로 통합
+- **간격 그리드 추정**: 모든 padding/margin/gap의 GCD로 base unit(보통 4 or 8) 결정 후 표준 스케일로 환원
+- **타이포 스케일**: 폰트 사이즈 비율 분석 → 모듈러 스케일 또는 표준 단계로 환원
+- **보더 반경 / 그림자 / 모션**: 각각 4~5단계로 elevation/intensity 단계화
+
+산출 후 **[quality_rubric.md](references/quality_rubric.md)의 자동 점검 항목**과 정합한지 곧바로 확인합니다 (예: 폰트 패밀리 ≤ 2개, 그리드 정합 등).
 
 ### Phase 1B: Figma 기반 토큰 및 컴포넌트 추출 (Discovery — Figma MCP)
 Figma URL이 주어진 경우, Figma MCP의 도구를 사용해 디자인 시스템을 직접 읽어옵니다. 자세한 절차는 [references/figma_extraction.md](references/figma_extraction.md)를 따릅니다.
@@ -80,11 +84,38 @@ Figma URL이 주어진 경우, Figma MCP의 도구를 사용해 디자인 시스
 Phase 3을 닫기 전에 `components/00-INDEX.md`에 체크리스트 결과를 표로 보고합니다 (형식은 [component_checklist.md](references/component_checklist.md#-결과-보고-형식) 참조). 이 인덱스는 결과물 완결성의 증거이자 후속 작업자의 진입점입니다.
 
 ### Phase 4: 품질 검증 및 브릿지 (Validation & Bridge)
-- **디자인 품질**: [references/quality_criteria.md](references/quality_criteria.md)의 4대 기준을 스스로 평가하고 피드백합니다.
-- **체크리스트 완결성**: `components/00-INDEX.md`의 모든 행이 ✅/⏭️/⛔로 결정되어 있는지 확인합니다. 빈 행이 있으면 Phase 3로 되돌아갑니다.
-- **상태 매트릭스 준수**: 각 컴포넌트가 [state_matrix.md](references/state_matrix.md)의 ■(필수) 항목을 모두 다뤘는지 점검합니다.
-- **토큰 환원율 (Token Coverage)**: foundations Semantic Token으로 환원되지 못한 raw hex/픽셀 값의 개수를 집계해 사용자에게 리포트합니다. 신뢰도의 핵심 지표입니다.
-- **Figma Make**: 각 컴포넌트 하단에 디자이너가 바로 활용할 수 있는 상세한 Figma 생성 프롬프트를 포함합니다.
+
+**4.1 자가 채점 (Self-Scoring)**
+[references/quality_rubric.md](references/quality_rubric.md)의 4대 기준 × 0~3점 척도로 채점하고, 각 기준의 자동 점검 항목을 체크합니다. 결과는 `design-systems/{brand}/quality_report.md`에 루브릭의 템플릿 형식으로 작성합니다.
+
+**4.2 체크리스트 완결성**
+`components/00-INDEX.md`의 모든 행이 ✅/⏭️/⛔로 결정되어 있는지 확인합니다. 빈 행이 있으면 Phase 3로 되돌아갑니다.
+
+**4.3 상태 매트릭스 준수**
+각 컴포넌트가 [state_matrix.md](references/state_matrix.md)의 ■(필수) 항목을 모두 다뤘는지 점검합니다. 컨테이너 컴포넌트는 산문이 아닌 명시적 상태 표 형식이어야 합니다 (Phase 3.2 가드).
+
+**4.4 토큰 환원율 (Token Coverage) — 계산식**
+다음 공식으로 계산하고 `quality_report.md`에 기록합니다:
+
+```
+환원율 = (Semantic 토큰 참조 수) / (Semantic 토큰 참조 수 + raw 값 등장 수)
+```
+
+- **분자 (Semantic 토큰 참조 수)**: 모든 `components/*.md`에서 `color/...`, `spacing/...`, `radius/...`, `text/...`, `motion/...`, `shadow/...` 형식으로 참조된 토큰 등장 횟수의 총합
+- **분모의 raw 값 등장 수**: 컴포넌트 명세 본문에서 `#xxxxxx` hex, `Npx` 픽셀 리터럴, `rgba(...)` 등 토큰화되지 않은 값의 등장 횟수
+  - 예외: `Figma Make 프롬프트` 코드 블록 안의 값은 제외 (디자이너용 산문이라 raw가 자연스러움)
+  - 예외: foundations 파일의 Primitive 정의 자체는 분모에 포함하지 않음 (raw 값이 *정의되는* 위치이지 *사용되는* 위치가 아님)
+
+**임계값:**
+- ≥ 80%: 권장 합격선
+- 60 ~ 79%: 양호하나 개선 여지 (어떤 컴포넌트에 raw 값이 남아있는지 보고)
+- < 60%: ⚠️ **경고** — 사용자에게 입력 품질 문제를 즉시 보고하고, 결과물을 "검수 필요"로 분류
+
+**4.5 합격선 판정**
+[quality_rubric.md의 합격선](references/quality_rubric.md#-합격선)을 모두 통과하면 결과물을 "production-ready"로 분류합니다. 하나라도 위배되면 "검수 필요"로 표기하고 사용자에게 우선순위 개선 항목을 제안합니다.
+
+**4.6 Figma Make 프롬프트**
+각 컴포넌트 하단에 디자이너가 바로 활용할 수 있는 상세한 Figma 생성 프롬프트를 포함합니다.
 
 ## 📜 주요 규칙 (Core Rules)
 - **Output Path**: 결과물은 항상 `design-systems/{brand-name}/` 하위에 작성합니다. 레포 루트에 직접 작성하지 마세요.
