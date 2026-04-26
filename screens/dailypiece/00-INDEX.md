@@ -123,4 +123,3 @@ flowchart TD
    - frame 2:513은 5개 sub-screen이 stack되어 있어 우선 분리 콜 필요 (예상 1콜로 sub-tree 모두 받을 가능성)
    - frame 2:367 (Edit Piece)와 2:412 (Piece Details)는 단일 화면이라 1콜씩 추가하면 정밀도 ↑
 2. **wanted DS Tier 2 마이그레이션** — BottomNavigation/Tabs/Menu 등 명세화 → 본 스크린 명세의 `<Custom>` 마커들을 component 참조로 교체
-3. **데이터 모델 명세** (`data_model.md`) — `{{piece.imageUrl}}` 같은 path들의 스키마 정의
