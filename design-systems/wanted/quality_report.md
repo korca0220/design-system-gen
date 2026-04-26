@@ -119,7 +119,6 @@
 ### 후속 (선택)
 - **Tier 2 잔여 7개**: Drawer/Sheet, Accordion, Popover, Breadcrumb, Pagination, Menu, Table
 - **Tier 3 도메인**: DatePicker, TimePicker, Slider, Stepper, SegmentedControl, SearchField
-- **DailyPiece data_model.md** 추가 — 스크린의 `{{...}}` path들의 스키마 정의
 
 ---
 
