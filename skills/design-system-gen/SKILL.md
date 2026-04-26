@@ -18,6 +18,22 @@ description: Extract and document design systems (foundations and components) fr
 - **(A) HTML/CSS 코드 또는 디자인 설명** → Phase 1A로 진행
 - **(B) Figma URL** (`figma.com/design/...`, `figma.com/file/...`) → Phase 1B로 진행 (Figma MCP 사용)
 
+### Phase 0.5: 스캐폴드 생성 (Scaffold)
+Phase 1로 들어가기 전에, 결과물 디렉토리의 베이스 구조를 [`assets/scaffold/`](assets/scaffold/)에서 복사하여 만듭니다. 이 단계는 모든 인스턴스가 동일한 디렉토리 구조와 운영 문서(README/AGENTS/docs)를 갖도록 보장합니다.
+
+**복사 절차:**
+1. `assets/scaffold/`의 모든 파일/디렉토리를 `design-systems/{brand-name}/`로 복사합니다 (단, `SCAFFOLD.md`는 제외 — 스캐폴드 자체의 사용법 문서이므로 결과물에 포함하지 않음).
+2. `README.md`와 `AGENTS.md` 안의 `{{...}}` 플레이스홀더를 Phase 1에서 결정한 값으로 치환합니다:
+   - `{{Brand Name}}`, `{{Brand Color}}`, `{{Primary Typeface}}`, 디자인 무드, 입력 종류, Figma URL 등.
+3. `TEMPLATE.md`로 끝나는 파일은 **치환하지 않고 그대로** 둡니다 (사용자가 새 컴포넌트를 추가할 때 참조하는 형식 기준).
+
+**필수 산출 파일 (스캐폴드 복사 후 모두 존재해야 함):**
+- `README.md`, `AGENTS.md`
+- `foundations/TEMPLATE.md`, `components/TEMPLATE.md`
+- `docs/README.md`, `docs/adr/TEMPLATE.md`, `docs/exec-plans/TEMPLATE.md`
+
+이후 Phase 2/3에서 실제 `foundations/00-*.md`와 `components/NN-*.md`를 채워 넣습니다.
+
 ### Phase 1A: HTML/CSS 기반 브랜드 아이덴티티 및 토큰 분석 (Discovery)
 입력된 HTML/CSS나 디자인 설명에서 고유한 브랜드 아이덴티티와 디자인 패턴을 식별합니다.
 - **브랜드 아이덴티티 정의**: 입력값에서 가장 지배적인 핵심 컬러(Key Color), 전체적인 디자인 무드(예: 미니멀, 사이버펑크, 따뜻함 등), 그리고 톤앤매너를 먼저 정의합니다.

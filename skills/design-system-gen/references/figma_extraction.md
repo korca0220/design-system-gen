@@ -99,10 +99,11 @@ State(Hover/Focus/Active/Disabled)는 보통 별도 variant로 존재하므로 C
 
 Figma 입력으로 생성할 때 결과 디렉토리에 반드시 포함되어야 하는 것:
 
+- [ ] **Phase 0.5 스캐폴드 복사 완료** — `README.md`, `AGENTS.md`, `docs/`, 각 TEMPLATE 포함 (SKILL.md Phase 0.5 참조)
+- [ ] `README.md`의 플레이스홀더 치환 — `{{Brand Name}}`, `{{Brand Color}}`, `{{Primary Typeface}}`, 입력 종류는 `figma`, Figma URL 기록
+- [ ] `AGENTS.md`의 `{{Brand Name}}` 치환
 - [ ] `foundations/00-*.md` (Variables 기반 우선)
 - [ ] `components/NN-*.md` (선택된 컴포넌트만, TEMPLATE 준수)
-- [ ] `README.md` (브랜드 아이덴티티 요약 + Figma 링크 백포인터)
-- [ ] `AGENTS.md` (재사용 가능한 에이전트 가이드 — `warm` 인스턴스의 것 참조)
 
 ---
 
