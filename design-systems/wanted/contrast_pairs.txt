@@ -16,10 +16,10 @@
 #FFFFFF,#3385FF,white text on primary/normal Dark = blue/60 AA,4.5
 #3385FF,#1B1C1E,primary/normal Dark text on bg AA-large,4.5
 
-; --- Status colors (Light) ---
-#FFFFFF,#FF4242,white on status/negative (Light) AA-large,3.0
-#FFFFFF,#00BF40,white on status/positive (Light) AA-large,3.0
-#FFFFFF,#FF9200,white on status/cautionary (Light) AA-large,3.0
-
-; --- Status colors (Dark) ---
-#1B1C1E,#FF6363,bg-text on status/negative (Dark) AA-large,3.0
+; --- Status colors used as foreground (text/icon/border) only ---
+; wds에서 status.*는 solid 배경으로 거의 사용되지 않음 — addOpacity(color, 5~28%)로 미세 배경 + 같은 색 텍스트 패턴.
+; 따라서 status 색 자체의 surface 위 명암비를 검증 (text on background, not white on status).
+#FF4242,#FFFFFF,status/negative text on surface/1 (Light) AA-large,3.0
+#00BF40,#FFFFFF,status/positive text on surface/1 (Light) AA-large,3.0
+#FF9200,#FFFFFF,status/cautionary text on surface/1 (Light) AA-large,3.0
+#FF6363,#1B1C1E,status/negative text on surface/1 (Dark) AA-large,3.0

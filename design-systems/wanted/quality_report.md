@@ -72,14 +72,19 @@
 - Dark mode label combos: 15.93:1, 17.05:1 (AAA)
 - Status negative on Light + Dark variants: ≥3.44:1 (AA-large)
 
-### 실패 (❌ 3개)
-| 페어 | 실측 | 기준 | 영향 |
-|---|---|---|---|
-| White text × `primary/normal Dark` (blue/60 #3385FF) | **3.54:1** | ≥4.5:1 (AA) | Dark 모드 Primary 버튼 위 흰 텍스트 가독성 부족 |
-| White text × `status/positive` (green/50 #00BF40) | **2.46:1** | ≥3.0:1 (AA-large) | 녹색 배지/알림 위 흰 텍스트 부족 |
-| White text × `status/cautionary` (orange/50 #FF9200) | **2.24:1** | ≥3.0:1 (AA-large) | 오렌지 배지/알림 위 흰 텍스트 부족 |
+### 실패 (❌ 3개) — wds 코드 교차 검증 후 모두 진짜 결함 확정
 
-> **해석**: 위 3개는 wds 원본 의도가 아닐 가능성 — Status 색 위에는 보통 어두운 텍스트(`color/static/black` 또는 `color/label/strong`)를 사용하는 게 안전. Dark 모드 Primary는 한 단계 어두운 `blue/55`(#1A75FF: 4.32:1)도 미달이고 `blue/50`(#0066FF: 3.69:1)도 미달이라 — 다크 모드 Primary 위 텍스트는 white가 아닌 다른 처리가 필요할 가능성. 실제 wds 컴포넌트 코드 검증 필요.
+| 페어 | 실측 | 기준 | 영향 | wds 실제 사용 |
+|---|---|---|---|---|
+| White text × `primary/normal Dark` (blue/60 #3385FF) | **3.54:1** | ≥4.5:1 (AA) | Dark 모드 Solid Primary Button 위 흰 텍스트 가독성 부족 | ✅ 확인 — `button/style.ts` solid primary variant: `color: white; background-color: primary.normal` |
+| `status/positive` 텍스트 × white surface (green/50 #00BF40) | **2.46:1** | ≥3.0:1 (AA-large) | 녹색 status 텍스트 가독성 부족 | ✅ 확인 — `section-message/style.ts`: `color: status.positive` 텍스트로 사용 |
+| `status/cautionary` 텍스트 × white surface (orange/50 #FF9200) | **2.24:1** | ≥3.0:1 (AA-large) | 오렌지 status 텍스트 가독성 부족 | ✅ 확인 — `section-message/style.ts`: `color: status.cautionary` 텍스트로 사용 |
+
+> **교차 검증 노트**: `grep status.* in wds/src`로 실제 사용 패턴을 확인한 결과, status 색은 **거의 항상 foreground**(text/border/icon)로 사용되며 solid 배경 + white text 조합은 거의 없음. 따라서 처음에 만든 페어 중 "white on status background"는 가상 페어였고, 정정하여 "status text on white surface" 페어로 검증. 그 결과 negative는 통과(3.44:1)지만 positive·cautionary는 미달.
+>
+> **권고**: 다음 중 하나 — (a) status.positive를 더 어둡게(green/40 #009632 → 3.39:1, green/30 #006E25 → 5.95:1로 확실히 통과), (b) cautionary는 의도상 attention seeking이라 명암비 완화 검토, (c) 큰 텍스트만 허용하고 본문 텍스트는 status 색 사용 금지를 design philosophy에 추가.
+>
+> Dark Primary Button의 경우 `color: black`을 다크 모드에서 사용하거나 primary 색을 어둡게 조정 필요.
 
 ---
 
