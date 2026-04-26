@@ -11,8 +11,15 @@
 
 사용:
   python3 validate_screen.py <screen.md>
-  python3 validate_screen.py <screens/{project}/>           # 디렉토리면 전체 검증
-  python3 validate_screen.py --repo-root <path> <target>    # 레포 루트 명시 (기본: 자동 탐지)
+  python3 validate_screen.py <screens/{project}/>             # 디렉토리면 전체 검증
+  python3 validate_screen.py --repo-root <path> <target>      # 레포 루트 명시
+  python3 validate_screen.py --ds-root <path> <target>        # DS 루트 명시 (production repo용)
+
+DS 루트 자동 탐지 우선순위:
+  1. --ds-root 옵션 (override)
+  2. design-systems/{extends}/        ← skill 개발 레포 (멀티 인스턴스)
+  3. {extends}/docs/                  ← production 레포 (단일 인스턴스, 예: wanting_apps)
+  4. {extends}/                       ← 그 밖
 
 종료 코드:
   0 — 모두 통과
@@ -28,12 +35,38 @@ from pathlib import Path
 
 
 def find_repo_root(start: Path) -> Path:
-    """git root를 찾거나 design-systems/ 디렉토리가 있는 곳을 root로."""
+    """git root를 찾거나 design-systems/ 또는 design_system/ 디렉토리가 있는 곳을 root로."""
     p = start.resolve()
     for ancestor in [p] + list(p.parents):
-        if (ancestor / ".git").exists() or (ancestor / "design-systems").is_dir():
+        if (
+            (ancestor / ".git").exists()
+            or (ancestor / "design-systems").is_dir()
+            or (ancestor / "design_system").is_dir()
+        ):
             return ancestor
     return p
+
+
+def resolve_ds_root(repo_root: Path, extends: str, ds_root_override: Path | None) -> Path:
+    """frontmatter extends + repo 구조에 따라 DS 루트 산출.
+
+    우선순위:
+    1. --ds-root 명시 (override)
+    2. design-systems/{extends}/ (멀티 인스턴스 레이아웃 — design-system-gen)
+    3. {extends}/docs/ (단일 인스턴스 레이아웃 — wanting_apps 같은 production repo)
+    4. {extends}/ (그 밖)
+    """
+    if ds_root_override is not None:
+        return ds_root_override
+    candidates = [
+        repo_root / "design-systems" / extends,
+        repo_root / extends / "docs",
+        repo_root / extends,
+    ]
+    for c in candidates:
+        if c.is_dir():
+            return c
+    return candidates[0]  # 첫 후보(레거시)로 폴백 — 검증 실패 메시지 자연스럽게 나옴
 
 
 def parse_frontmatter(text: str) -> tuple[dict, str]:
@@ -165,7 +198,7 @@ def find_raw_values_in_bindings(sections: dict[str, str]) -> tuple[list[str], li
     return hexes, pxs
 
 
-def validate_screen(path: Path, repo_root: Path) -> tuple[bool, list[str]]:
+def validate_screen(path: Path, repo_root: Path, ds_root_override: Path | None = None) -> tuple[bool, list[str]]:
     """단일 스크린 검증. 반환: (전체 통과?, 메시지 목록)"""
     msgs: list[str] = []
     text = path.read_text(encoding="utf-8")
@@ -182,7 +215,7 @@ def validate_screen(path: Path, repo_root: Path) -> tuple[bool, list[str]]:
     if not extends:
         msgs.append("❌ frontmatter.extends 없음")
         return False, msgs
-    ds_root = repo_root / "design-systems" / extends
+    ds_root = resolve_ds_root(repo_root, extends, ds_root_override)
     if not ds_root.is_dir():
         msgs.append(f"❌ extends '{extends}' → {ds_root} 디렉토리 없음")
         return False, msgs
@@ -227,7 +260,7 @@ def validate_screen(path: Path, repo_root: Path) -> tuple[bool, list[str]]:
     return ok, msgs
 
 
-def validate_target(target: Path, repo_root: Path) -> int:
+def validate_target(target: Path, repo_root: Path, ds_root_override: Path | None = None) -> int:
     if target.is_file():
         files = [target]
     elif target.is_dir():
@@ -238,8 +271,12 @@ def validate_target(target: Path, repo_root: Path) -> int:
 
     total_fail = 0
     for f in files:
-        print(f"\n=== {f.relative_to(repo_root)} ===")
-        ok, msgs = validate_screen(f, repo_root)
+        try:
+            rel = f.relative_to(repo_root)
+        except ValueError:
+            rel = f
+        print(f"\n=== {rel} ===")
+        ok, msgs = validate_screen(f, repo_root, ds_root_override)
         for m in msgs:
             print(f"  {m}")
         if not ok:
@@ -256,12 +293,16 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("target", help="검증할 .md 파일 또는 screens 디렉토리")
     p.add_argument("--repo-root", default=None, help="레포 루트 경로 (기본: 자동 탐지)")
+    p.add_argument("--ds-root", default=None, help="DS 루트 경로 (기본: 자동 — design-systems/{extends} 또는 {extends}/docs)")
     args = p.parse_args()
 
     target = Path(args.target).resolve()
     repo_root = Path(args.repo_root).resolve() if args.repo_root else find_repo_root(target)
+    ds_root_override = Path(args.ds_root).resolve() if args.ds_root else None
     print(f"repo-root: {repo_root}")
-    return validate_target(target, repo_root)
+    if ds_root_override:
+        print(f"ds-root (override): {ds_root_override}")
+    return validate_target(target, repo_root, ds_root_override)
 
 
 if __name__ == "__main__":
