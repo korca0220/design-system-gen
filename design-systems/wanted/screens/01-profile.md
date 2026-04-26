@@ -73,10 +73,8 @@ Page (viewport: mobile, 375×918)
 │       └── Slot: version
 │           ↳ component: design-systems/wanted/components/16-label.md
 └── Region: Footer (BottomNav, 화면 하단 고정)
-    └── (반복) Item × 4
-        ↳ <Custom name="BottomNavItem">
-        # wanted DS의 Tier 2(top-navigation/bottom-navigation)는 미명세 상태.
-        # 후속 마이그레이션 후 components/NN-bottom-navigation.md로 교체 예정.
+    ↳ component: design-systems/wanted/components/23-bottom-navigation.md
+    └── (반복) items × 4 (slot: items)
 ```
 
 ---
@@ -227,28 +225,27 @@ Page (viewport: mobile, 375×918)
 
 ### Region: Footer (BottomNav)
 
-#### Layout 토큰
-- height: 65 (Figma 추정)
-- bg-color: `color/background/elevated/normal`
-- border-top: `1px color/line/normal/neutral`
+- ref: `design-systems/wanted/components/23-bottom-navigation.md`
+- variant: `with-label`
 
-#### (반복) Item × 4
+#### (반복) items × 4
 
 각 아이템 (My Pieces / Calendar / Search / Profile):
-- ref: `<Custom name="BottomNavItem">`
-- bindings (per item):
+- bindings (per item, BottomNavigationItem 슬롯):
   - icon: `{{item.icon}}`
+  - activeIcon: `{{item.activeIcon}}`
   - label: `{{item.label}}`
+  - route: `{{item.route}}`
   - active: `{{item.route === currentRoute}}`
   - on-tap: `screen-flow → {{item.route}}`
 
 데이터:
 ```
 [
-  { icon: 'image-stack',  label: 'My Pieces', route: 'my-pieces' },
-  { icon: 'calendar',     label: 'Calendar',  route: 'calendar' },
-  { icon: 'search',       label: 'Search',    route: 'search' },
-  { icon: 'user-circle',  label: 'Profile',   route: 'profile' },   // current
+  { icon: 'image-stack',  activeIcon: 'image-stack-fill', label: 'My Pieces', route: 'my-pieces' },
+  { icon: 'calendar',     activeIcon: 'calendar-fill',    label: 'Calendar',  route: 'calendar'  },
+  { icon: 'search',       activeIcon: 'search-fill',      label: 'Search',    route: 'search'    },
+  { icon: 'user-circle',  activeIcon: 'user-circle-fill', label: 'Profile',   route: 'profile'   },   // current
 ]
 ```
 
@@ -300,4 +297,4 @@ Page (viewport: mobile, 375×918)
 - [ ] 사용된 모든 토큰이 wanted foundations에 존재 (대부분 ✓, 일부 추정 — `text/label2` `color/label/assistive` 등은 foundations 확인 필요)
 - [x] 데이터 바인딩 `{{...}}` path 일관성
 
-> **검수 필요**: BottomNav의 `<Custom name="BottomNavItem">`은 wanted Tier 2(나비게이션) 미명세 상태. 후속에 명세 추가 후 component 참조로 전환.
+> ✅ **BottomNav 컴포넌트 명세 완료** ([23-bottom-navigation.md](../components/23-bottom-navigation.md)) — 본 화면이 첫 사용 사례.

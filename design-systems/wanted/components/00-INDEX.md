@@ -4,7 +4,7 @@
 
 ## 📊 요약
 - **Tier 1 (필수)**: 21 / 21 ✅ Documented
-- **Tier 2 (권장)**: 1 / 12 ✅ Documented (Chip), 11 ⏳ Pending
+- **Tier 2 (권장)**: 2 / 12 ✅ Documented (Chip, BottomNavigation), 10 ⏳ Pending
 - **Tier 3 (선택)**: 모두 ⛔ N/A 또는 ⏳ Pending
 
 ---
@@ -49,7 +49,8 @@
 | Breadcrumb | ⏳ Pending | (없음) | wds에 직접 컴포넌트 없음 |
 | Pagination | ⏳ Pending | `components/pagination`, `pagination-dots`, `page-counter` | |
 | Menu / Dropdown Menu | ⏳ Pending | `components/menu` | |
-| Nav Item / Sidebar Item | ⏳ Pending | `components/top-navigation`, `bottom-navigation` | |
+| 23 BottomNavigation | ✅ Documented | `components/bottom-navigation` | [23-bottom-navigation.md](23-bottom-navigation.md) — DailyPiece 5/10 화면에서 사용 |
+| Top Navigation / Sidebar Item | ⏳ Pending | `components/top-navigation` | |
 | Table | ⏳ Pending | `components/table` | |
 | List Item | ⏳ Pending | `components/list` | |
 | Stat Card | ⏳ Pending | (없음) | Card 합성으로 표현 가능 |

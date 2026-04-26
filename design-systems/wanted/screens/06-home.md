@@ -42,9 +42,9 @@ Page (viewport: mobile, 375×840)
 │           │   ↳ component: design-systems/wanted/components/16-label.md
 │           └── ↳ slot: date
 │               ↳ component: design-systems/wanted/components/16-label.md
-└── Region: Footer
-    └── (반복) Item × 4
-        ↳ <Custom name="BottomNavItem">
+└── Region: Footer (BottomNav)
+    ↳ component: design-systems/wanted/components/23-bottom-navigation.md
+    └── (반복) items × 4 (slot: items)
 ```
 
 ---

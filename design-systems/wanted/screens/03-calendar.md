@@ -45,9 +45,9 @@ Page (viewport: mobile, 375×840)
 │   └── Section: TodayButton
 │       └── Slot: button
 │           ↳ component: design-systems/wanted/components/01-button.md
-└── Region: Footer
-    └── (반복) Item × 4
-        ↳ <Custom name="BottomNavItem">
+└── Region: Footer (BottomNav)
+    ↳ component: design-systems/wanted/components/23-bottom-navigation.md
+    └── (반복) items × 4 (slot: items)
 ```
 
 ---

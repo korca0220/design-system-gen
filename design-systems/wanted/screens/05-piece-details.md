@@ -50,9 +50,9 @@ Page (viewport: mobile, 375×1164, 스크롤)
 │   └── Section: Note
 │       └── Slot: noteText
 │           ↳ component: design-systems/wanted/components/16-label.md
-└── Region: Footer
-    └── (반복) Item × 4
-        ↳ <Custom name="BottomNavItem">
+└── Region: Footer (BottomNav)
+    ↳ component: design-systems/wanted/components/23-bottom-navigation.md
+    └── (반복) items × 4 (slot: items)
 ```
 
 ---
