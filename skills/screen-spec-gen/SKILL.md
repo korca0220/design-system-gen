@@ -95,13 +95,32 @@ Figma 입력 없이 스크린샷·설명만 있는 경우:
 - 짧은 산문 OK (이 섹션만)
 
 ### Phase 3: 검증
-산출 후 [references/validation_checklist.md](references/validation_checklist.md)의 항목을 점검:
 
-- [ ] 모든 슬롯의 컴포넌트 참조가 실제 파일 경로에 매칭됨
-- [ ] 모든 토큰 참조가 베이스 DS의 foundations에 존재함
-- [ ] raw hex/픽셀이 Bindings 섹션에 없음 (Skeleton/Intent에는 metadata로 가능)
-- [ ] viewport별 분기(responsive)가 일관됨
-- [ ] frontmatter의 `extends`/`imports`가 모두 유효한 인스턴스 경로
+> ⚠️ **이 단계는 단발 점검이 아니라 루프입니다.** 검증 실패 항목이 0이 될 때까지 Phase 2와 본 단계를 반복합니다.
+
+**3.1 자동 검증 실행 (필수)**
+```
+python3 skills/screen-spec-gen/scripts/validate_screen.py screens/{project}/
+```
+스크립트가 다음을 자동 점검합니다:
+- frontmatter 유효성 (yaml 파싱 + extends 디렉토리 존재)
+- 모든 `↳ component:` 참조가 실제 .md 파일에 매칭
+- 모든 `color/...`, `spacing/...`, `radius/...` 등 토큰 참조가 베이스 DS의 foundations에 존재
+- Bindings 섹션에 raw hex(`#xxxxxx`) 없음 (Figma Make 코드블록 / Custom 슬롯 제외)
+
+**종료 코드 0**(전체 통과)이어야 Phase 3을 종료할 수 있습니다.
+
+**3.2 실패 시 루프 동작**
+- **컴포넌트 참조 실패**: 해당 컴포넌트가 실제로 누락 → DS에 컴포넌트 명세 추가 (`design-system-gen` 스킬 활용) 또는 `<Custom>` 마커로 명시적 표기
+- **토큰 참조 실패**: 베이스 DS의 foundations에 정식 토큰으로 추가 → `design-systems/{brand}/foundations/00-color.md` 등에 정식 표 추가 후 재검증
+- **raw 값 실패**: 토큰 환원이 안 된 raw 값을 Bindings에서 제거 → DS 토큰 사용 또는 `<Custom>` 처리
+- **자동 점검 미통과 0건**이 될 때까지 반복
+
+**3.3 수동 점검 (자동 도구가 못 잡는 항목)**
+[references/validation_checklist.md](references/validation_checklist.md)에서 자동 점검 외 항목:
+- viewport별 분기(responsive)가 frontmatter `responsive`와 일치
+- Intent 섹션의 사용자 의도 / 진입·이탈 / 핵심 액션 우선순위 / 접근성 주석 채움
+- 인터랙티브 슬롯에 on-tap/on-change 등 트리거 명시
 
 ### Phase 4: 인덱스 + 플로우
 스크린이 여러 개면 `screens/00-INDEX.md`에 다음을 작성:

@@ -32,12 +32,7 @@ Page (viewport: mobile, 375×840)
 │           ↳ component: design-systems/wanted/components/16-label.md
 ├── Region: Content
 │   ├── Section: PhotoPicker
-│   │   ├── Slot: tapTarget
-│   │   │   ↳ <Custom name="PhotoPickerSlot">
-│   │   ├── Slot: hint
-│   │   │   ↳ component: design-systems/wanted/components/16-label.md
-│   │   └── Slot: subhint
-│   │       ↳ component: design-systems/wanted/components/16-label.md
+│   │   ↳ component: design-systems/wanted/components/27-image-uploader.md (variant: default, mode: empty)
 │   ├── Section: CaptionField
 │   │   ├── Slot: label
 │   │   │   ↳ component: design-systems/wanted/components/16-label.md
@@ -81,26 +76,17 @@ Page (viewport: mobile, 375×840)
 
 #### Section: PhotoPicker
 
-**Slot: tapTarget**
-- ref: `<Custom name="PhotoPickerSlot">`
-- aspect: `1:1` (정사각형 영역, 검수 필요)
-- bg-color: `color/fill/alternative`
-- border: `2px dashed color/line/normal/neutral`
-- radius: `radius/lg`
-- on-tap: `system: openImagePicker → state: form.photoFile = $selected`
-- (when photo selected) → `<Custom name="PhotoPreview">` 렌더
+- ref: `design-systems/wanted/components/27-image-uploader.md`
+- variant: `default`
+- aspect: `1:1` (정사각형, 검수 필요)
+- size: `medium`
+- value: `{{form.photoFile}}`
+- hint: `Tap to select a photo`
+- subhint: `Share your moment of the day`
+- onChange: `state: form.photoFile = $value` (이미지 선택 시 자동 preview 모드)
+- onRemove: `state: form.photoFile = null` (preview 모드의 우상단 X)
 
-**Slot: hint**
-- text-variant: `text/body1` × `font/weight/medium`
-- color: `color/label/normal`
-- content: `Tap to select a photo`
-- align: `center`
-
-**Slot: subhint**
-- text-variant: `text/body2`
-- color: `color/label/alternative`
-- content: `Share your moment of the day`
-- align: `center`
+> ImageUploader가 empty/preview 두 모드를 모두 처리. text-only 모드(`form.mode === "text-only"`)일 때 disabled=true 또는 영역 hidden.
 
 #### Section: CaptionField
 

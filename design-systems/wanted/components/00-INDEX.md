@@ -4,7 +4,7 @@
 
 ## 📊 요약
 - **Tier 1 (필수)**: 21 / 21 ✅ Documented
-- **Tier 2 (권장)**: 5 / 12 ✅ Documented (Chip, BottomNavigation, ListItem, TopNavigation, Tabs), 7 ⏳ Pending
+- **Tier 2 (권장)**: 5 / 12 ✅ Documented + 1 합성 (Chip, BottomNavigation, ListItem, TopNavigation, Tabs, **ImageUploader**)
 - **Tier 3 (선택)**: 모두 ⛔ N/A 또는 ⏳ Pending
 
 ---
@@ -46,6 +46,7 @@
 | 24 ListItem | ✅ Documented | `components/list` | [24-list-item.md](24-list-item.md) — Settings Row, 메뉴 행 등 광범위 |
 | 25 TopNavigation | ✅ Documented | `components/top-navigation` | [25-top-navigation.md](25-top-navigation.md) — 모든 화면 헤더 표준 |
 | 26 Tabs | ✅ Documented | `components/tab` | [26-tabs.md](26-tabs.md) — underline/pills variant |
+| 27 ImageUploader | ✅ Documented (합성) | `components/image-base` 활용 | [27-image-uploader.md](27-image-uploader.md) — empty/preview 양 모드, DailyPiece New Piece + Edit Piece 적용 |
 | Drawer / Sheet | ⏳ Pending | (Modal `bottom` variant로 일부 커버) | wds Modal/bottom + handle이 sheet 역할 |
 | Accordion / Disclosure | ⏳ Pending | `components/accordion` | |
 | Popover | ⏳ Pending | `components/popover`, `popper` | |

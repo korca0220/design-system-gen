@@ -95,10 +95,10 @@ flowchart TD
 | `DailyPieceThumbnail` | 2~3 | Card thumbnail 합성 또는 별도 합류 후보 |
 | `DailyPiecePhoto` | 1 (Piece Details) | 풀폭 hero photo — Custom 유지 가능 |
 | `CalendarDayCell` | 1 | 도메인 특화 — Custom 유지 |
-| `PhotoPickerSlot` | 1 | wds image-uploader 후보 |
-| `PhotoPreview` | 1 (Edit) | wds thumbnail 합성 |
+| ~~`PhotoPickerSlot`~~ | ~~1~~ | ✅ **합류 완료** → [components/27-image-uploader.md](../../design-systems/wanted/components/27-image-uploader.md) (empty 모드) |
+| ~~`PhotoPreview`~~ | ~~1~~ | ✅ **합류 완료** → [components/27-image-uploader.md](../../design-systems/wanted/components/27-image-uploader.md) (preview 모드) |
 | `AppLogoMark` | 1 (Home) | 도메인 자산 — Custom 유지 |
-| `PasswordVisibilityToggle` | 2 (Auth) | IconButton 합성으로 표현 가능 |
+| `PasswordVisibilityToggle` | 2 (Auth) | IconButton 합성으로 표현 가능 — Custom 유지 합리적 |
 
 ---
 
@@ -110,7 +110,7 @@ flowchart TD
 2. ~~**TopNavigation 컴포넌트 명세**~~ ✅ **완료** ([25-top-navigation.md](../../design-systems/wanted/components/25-top-navigation.md))
 3. ~~**ListItem 합성 컴포넌트**~~ ✅ **완료** ([24-list-item.md](../../design-systems/wanted/components/24-list-item.md)) — Profile Settings/Theme 행 적용 완료
 4. ~~**Tabs 컴포넌트**~~ ✅ **완료** ([26-tabs.md](../../design-systems/wanted/components/26-tabs.md))
-5. **Image Uploader / Photo Picker** — New Piece의 photo 선택 영역. 도메인 친화 합성 컴포넌트 후보.
+5. ~~**Image Uploader / Photo Picker**~~ ✅ **완료** ([27-image-uploader.md](../../design-systems/wanted/components/27-image-uploader.md)) — empty/preview 두 모드 통합. New Piece + Edit Piece 양쪽 적용.
 6. **foundations 보강 발견**: validate_screen.py로 누락된 토큰 2개 발견 → `color/primary/subtle`, `color/fill/alternative`를 foundations/00-color.md에 정식 추가 완료.
 
 ---

@@ -34,10 +34,8 @@ Page (viewport: mobile, 375×772)
 │   │   │   ↳ component: design-systems/wanted/components/16-label.md
 │   │   ├── Slot: requiredBadge
 │   │   │   ↳ component: design-systems/wanted/components/14-content-badge.md
-│   │   ├── Slot: photoPreview
-│   │   │   ↳ <Custom name="PhotoPreview">
-│   │   ├── Slot: replaceButton
-│   │   │   ↳ component: design-systems/wanted/components/01-button.md
+│   │   ├── Slot: imageUploader
+│   │   │   ↳ component: design-systems/wanted/components/27-image-uploader.md (mode: preview)
 │   │   └── Slot: helperText
 │   │       ↳ component: design-systems/wanted/components/16-label.md
 │   └── Section: CaptionField
@@ -89,22 +87,17 @@ Page (viewport: mobile, 375×772)
 - size: `xsmall`
 - content: `Required`
 
-**Slot: photoPreview**
-- ref: `<Custom name="PhotoPreview">`
-- src: `{{form.photoUrl}}`
-- alt: `현재 piece 사진`
-- aspect: `1:1` 또는 `4:3` (검수 필요 — 디자인에서 추정)
-- radius: `radius/lg` (12px)
-
-**Slot: replaceButton**
-- ref: `design-systems/wanted/components/01-button.md`
-- variant: `outlined`
-- color: `assistive`
+**Slot: imageUploader**
+- ref: `design-systems/wanted/components/27-image-uploader.md`
+- variant: `default`
+- aspect: `1:1` (검수 필요 — 디자인에서 추정)
 - size: `medium`
-- fullWidth: `true`
-- content: `Replace Photo`
-- leadingContent: `icon: image-edit`
-- on-tap: `system: openImagePicker → state: form.photoFile = $selected`
+- value: `{{form.photoUrl}}` (preview 모드 진입)
+- alt: `현재 piece 사진`
+- onChange: `state: form.photoFile = $value` (Replace Photo 액션 — 우상단 edit IconButton 또는 영역 탭으로 시스템 픽커)
+- onRemove: `(없음 — Edit Piece에선 사진 필수, 제거 불가)`
+
+> 별도 "Replace Photo" 버튼 슬롯 불필요 — ImageUploader의 preview 모드 우상단 액션이 동일 역할 수행.
 
 **Slot: helperText**
 - text-variant: `text/caption1`
