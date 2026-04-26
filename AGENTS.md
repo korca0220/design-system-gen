@@ -13,9 +13,12 @@
 
 | 경로 | 내용 |
 |---|---|
-| [`skills/design-system-gen/`](skills/design-system-gen/) | **생성 스킬 본체** — SKILL.md, references, 스캐폴드 |
-| [`design-systems/`](design-systems/) | **결과물(인스턴스)들** — 각 하위 디렉토리가 하나의 디자인 시스템 |
-| `design-systems/{brand}/` | 단일 디자인 시스템 인스턴스 (foundations/, components/, docs/, README.md, AGENTS.md) |
+| [`skills/design-system-gen/`](skills/design-system-gen/) | **DS 생성 스킬** — 토큰/컴포넌트 명세를 만드는 스킬 |
+| [`skills/screen-spec-gen/`](skills/screen-spec-gen/) | **스크린 명세 스킬** — DS를 소비해서 화면을 framework-neutral .md로 명세 |
+| [`design-systems/`](design-systems/) | **DS 결과물(인스턴스)** — 각 하위가 하나의 디자인 시스템 |
+| `design-systems/{brand}/` | 단일 DS 인스턴스 (foundations/, components/, docs/, README.md, AGENTS.md) |
+| [`screens/`](screens/) | **스크린 결과물** — 각 하위가 하나의 화면 명세 프로젝트 |
+| `screens/{project}/` | 단일 프로젝트 (각 .md = 1 화면, frontmatter `extends`로 베이스 DS 지정) |
 
 ## 📚 스킬 사용법 (요약)
 

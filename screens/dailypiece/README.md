@@ -3,7 +3,7 @@
 이 디렉토리는 **DailyPiece** 모바일 앱의 스크린 명세 모음입니다. 각 .md 파일은 framework-neutral한 형식으로 작성되어 React/Flutter/SwiftUI 등 어떤 코드 생성기로도 동일하게 변환됩니다.
 
 ## 🎨 베이스 디자인 시스템
-- **Primary**: `wanted` (→ [`design-systems/wanted/`](../))
+- **Primary**: `wanted` (→ [`design-systems/wanted/`](../../design-systems/wanted/))
 - **Imports**: 없음 (단일 DS 사용)
 
 ## 📂 스크린 인덱스

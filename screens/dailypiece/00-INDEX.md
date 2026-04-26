@@ -91,7 +91,7 @@ flowchart TD
 
 | `<Custom>` | 등장 빈도 | DS 합류 후보 |
 |---|---|---|
-| ~~`BottomNavItem`~~ | ~~5 화면~~ | ✅ **합류 완료** → [components/23-bottom-navigation.md](../components/23-bottom-navigation.md) |
+| ~~`BottomNavItem`~~ | ~~5 화면~~ | ✅ **합류 완료** → [components/23-bottom-navigation.md](../../design-systems/wanted/components/23-bottom-navigation.md) |
 | `DailyPieceThumbnail` | 2~3 | Card thumbnail 합성 또는 별도 합류 후보 |
 | `DailyPiecePhoto` | 1 (Piece Details) | 풀폭 hero photo — Custom 유지 가능 |
 | `CalendarDayCell` | 1 | 도메인 특화 — Custom 유지 |
@@ -106,7 +106,7 @@ flowchart TD
 
 이번 시범으로 발견된 **wanted DS 보강 후보** (스킬의 자기 발견 기능):
 
-1. ~~**BottomNavigation 컴포넌트 명세**~~ ✅ **완료** ([23-bottom-navigation.md](../components/23-bottom-navigation.md)). 5/10 화면 모두 component 참조로 전환됨.
+1. ~~**BottomNavigation 컴포넌트 명세**~~ ✅ **완료** ([23-bottom-navigation.md](../../design-systems/wanted/components/23-bottom-navigation.md)). 5/10 화면 모두 component 참조로 전환됨.
 2. **TopNavigation / Sidebar Item** — Profile/Calendar/Modal Header에 사용 가능. wds `top-navigation` 기반 명세 후보.
 3. **List/Setting Row 합성 패턴** — Profile 화면의 Settings 행(title + caption + trigger/control). wds `list-item` 명세화.
 4. **Image Uploader / Photo Picker** — New Piece의 photo 선택 영역. 도메인 친화 합성 컴포넌트 후보.

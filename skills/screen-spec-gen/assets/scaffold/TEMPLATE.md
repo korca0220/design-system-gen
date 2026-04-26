@@ -39,7 +39,7 @@ Page (viewport: {{mobile}})
     └── ...
 ```
 
-> **레이아웃 문법**은 [references/layout_grammar.md](../../../skills/screen-spec-gen/references/layout_grammar.md) 참조.
+> **레이아웃 문법**은 [references/layout_grammar.md](../../skills/screen-spec-gen/references/layout_grammar.md) 참조.
 > Custom 영역은 `↳ <Custom name="...">`로 표기.
 
 ---

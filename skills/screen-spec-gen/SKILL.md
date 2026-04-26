@@ -11,12 +11,13 @@ description: Convert UI screens (from Figma URL or screenshots) into framework-n
 
 ## 📁 출력 위치 (Output Location)
 
-스크린 명세는 두 가지 위치 중 하나에 작성합니다:
+**모든 스크린 명세는 레포 루트의 `screens/{project}/` 하위에 생성합니다.** 디자인 시스템 인스턴스(`design-systems/{brand}/`)와 독립된 위치 — 한 프로젝트가 여러 DS를 믹스하거나, DS 변경 없이 화면만 다시 생성하는 경우를 모두 깔끔히 처리.
 
-- **`design-systems/{brand}/screens/`** — 단일 디자인 시스템에 종속된 스크린 (대부분의 경우)
-- **`screens/{project}/`** (레포 루트) — 여러 디자인 시스템을 믹스하는 시스템 중립 프로젝트 (드문 경우)
+- 기본 패턴: `screens/{project}/NN-screen-name.md` (NN은 두 자리 순서, 화면 흐름 순서대로)
+- 베이스 디자인 시스템은 각 스크린의 frontmatter `extends`로 지정
+- 예: `screens/dailypiece/01-profile.md` 가 `extends: wanted` 명시 → `design-systems/wanted/`의 컴포넌트 참조
 
-각 스크린 파일: `screens/NN-screen-name.md` (NN은 두 자리 순서, 화면 흐름 순서대로).
+> **이전 컨벤션 비호환**: 이전 버전 SKILL.md는 `design-systems/{brand}/screens/`를 권장했으나, 그 구조는 한 DS에 종속된 스크린만 표현 가능했음. 본 컨벤션이 더 일반적이므로 **모든 신규 작업은 루트 `screens/`로 진행**합니다. 기존 인스턴스는 마이그레이션 권장.
 
 ## 🚀 워크플로우 (Workflows)
 

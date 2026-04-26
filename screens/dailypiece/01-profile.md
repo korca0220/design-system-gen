@@ -297,4 +297,4 @@ Page (viewport: mobile, 375×918)
 - [ ] 사용된 모든 토큰이 wanted foundations에 존재 (대부분 ✓, 일부 추정 — `text/label2` `color/label/assistive` 등은 foundations 확인 필요)
 - [x] 데이터 바인딩 `{{...}}` path 일관성
 
-> ✅ **BottomNav 컴포넌트 명세 완료** ([23-bottom-navigation.md](../components/23-bottom-navigation.md)) — 본 화면이 첫 사용 사례.
+> ✅ **BottomNav 컴포넌트 명세 완료** ([23-bottom-navigation.md](../../design-systems/wanted/components/23-bottom-navigation.md)) — 본 화면이 첫 사용 사례.
