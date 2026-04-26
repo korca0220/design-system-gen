@@ -4,7 +4,7 @@
 
 ## 📊 요약
 - **Tier 1 (필수)**: 21 / 21 ✅ Documented
-- **Tier 2 (권장)**: 2 / 12 ✅ Documented (Chip, BottomNavigation), 10 ⏳ Pending
+- **Tier 2 (권장)**: 5 / 12 ✅ Documented (Chip, BottomNavigation, ListItem, TopNavigation, Tabs), 7 ⏳ Pending
 - **Tier 3 (선택)**: 모두 ⛔ N/A 또는 ⏳ Pending
 
 ---
@@ -42,17 +42,17 @@
 | Component | Status | wds 원본 | Note |
 |---|---|---|---|
 | 04 Chip | ✅ Documented | `components/chip` | [04-chip.md](04-chip.md) |
+| 23 BottomNavigation | ✅ Documented | `components/bottom-navigation` | [23-bottom-navigation.md](23-bottom-navigation.md) — DailyPiece 5/10 화면에서 사용 |
+| 24 ListItem | ✅ Documented | `components/list` | [24-list-item.md](24-list-item.md) — Settings Row, 메뉴 행 등 광범위 |
+| 25 TopNavigation | ✅ Documented | `components/top-navigation` | [25-top-navigation.md](25-top-navigation.md) — 모든 화면 헤더 표준 |
+| 26 Tabs | ✅ Documented | `components/tab` | [26-tabs.md](26-tabs.md) — underline/pills variant |
 | Drawer / Sheet | ⏳ Pending | (Modal `bottom` variant로 일부 커버) | wds Modal/bottom + handle이 sheet 역할 |
-| Tabs | ⏳ Pending | `components/tab` | |
 | Accordion / Disclosure | ⏳ Pending | `components/accordion` | |
 | Popover | ⏳ Pending | `components/popover`, `popper` | |
 | Breadcrumb | ⏳ Pending | (없음) | wds에 직접 컴포넌트 없음 |
 | Pagination | ⏳ Pending | `components/pagination`, `pagination-dots`, `page-counter` | |
 | Menu / Dropdown Menu | ⏳ Pending | `components/menu` | |
-| 23 BottomNavigation | ✅ Documented | `components/bottom-navigation` | [23-bottom-navigation.md](23-bottom-navigation.md) — DailyPiece 5/10 화면에서 사용 |
-| Top Navigation / Sidebar Item | ⏳ Pending | `components/top-navigation` | |
 | Table | ⏳ Pending | `components/table` | |
-| List Item | ⏳ Pending | `components/list` | |
 | Stat Card | ⏳ Pending | (없음) | Card 합성으로 표현 가능 |
 
 ---

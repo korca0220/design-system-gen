@@ -3,6 +3,8 @@
 ## 개요
 Wanted Montage의 타이포그래피는 **Pretendard JP**를 기반으로 19개의 사이즈 variant × 3개 weight를 정의합니다. iOS Human Interface와 비슷한 위계(Display/Title/Heading/Headline/Body/Label/Caption)를 따르며, 본문 가독성을 위해 일부 variant에 별도의 reading 변형을 둡니다.
 
+> **풍부한 위계는 의도된 디자인 결정**: 19단계는 일반 권장(5~9단계)보다 많지만, 채용·이력·일기 같은 *읽는 경험* 중심 도메인에서 본문/설명/캡션의 미세한 위계를 표현하기 위해 의도적으로 풍부하게 둡니다. (예: `body1` vs `body1-reading`은 동일 사이즈지만 라인하이트만 달라 긴 글에서 가독성↑.) 단, 한 화면에서 이 모든 단계를 사용하는 게 아니라, 컨텍스트별로 3~5단계만 골라 쓰는 게 원칙.
+
 ---
 
 ## 🏗️ 하네스 설계 원칙

@@ -88,6 +88,7 @@ Wanted Montage의 컬러 시스템은 **Atomic(Primitive)**과 **Semantic** 두 
 | `color/primary/normal` | `blue/50` | `blue/60` | 기본 CTA, 링크 |
 | `color/primary/strong` | `blue/45` | `blue/55` | Hover |
 | `color/primary/heavy` | `blue/40` | `blue/50` | Active/Pressed |
+| `color/primary/subtle` | `blue/95` | `blue/20` | 선택 상태 배경, 강조 칩 배경 (텍스트는 `color/primary/normal`로) |
 
 ### Label (텍스트)
 | 토큰 | Light | Dark |
@@ -132,10 +133,24 @@ Wanted Montage의 컬러 시스템은 **Atomic(Primitive)**과 **Semantic** 두 
 | `color/status/cautionary` | `orange/50` | `orange/60` |
 | `color/status/negative` | `red/50` | `red/60` |
 
-### Inverse / Fill / Material (보조 카테고리)
-- **Inverse**: 다크 위 라이트 컴포넌트 등 반전 컨텍스트용. `inverse/primary`, `inverse/background`, `inverse/label`.
-- **Fill**: 미세한 오버레이 채움. `fill/normal`, `fill/strong`, `fill/alternative`.
-- **Material**: `material/dimmer` — 모달 백드롭 (Light: `coolNeutral/10 @ 52%`, Dark: `coolNeutral/10 @ 74%`).
+### Fill (오버레이 채움)
+| 토큰 | Light | Dark | 사용처 |
+|---|---|---|---|
+| `color/fill/normal` | `coolNeutral/50 @ 8%` | `coolNeutral/50 @ 22%` | Hover 배경, 보조 영역 fill |
+| `color/fill/strong` | `coolNeutral/50 @ 16%` | `coolNeutral/50 @ 28%` | Active/Pressed 배경 |
+| `color/fill/alternative` | `coolNeutral/50 @ 5%` | `coolNeutral/50 @ 12%` | 노트/안내 박스, 비활성 컨테이너 |
+
+### Inverse (반전 컨텍스트)
+| 토큰 | Light | Dark | 사용처 |
+|---|---|---|---|
+| `color/inverse/primary` | `blue/60` | `blue/50` | 다크 톤 위 primary 액센트 |
+| `color/inverse/background` | `coolNeutral/15` | `common/100` | Tooltip, Snackbar 배경 |
+| `color/inverse/label` | `coolNeutral/99` | `coolNeutral/10` | inverse 배경 위 텍스트 |
+
+### Material (백드롭)
+| 토큰 | Light | Dark | 사용처 |
+|---|---|---|---|
+| `color/material/dimmer` | `coolNeutral/10 @ 52%` | `coolNeutral/10 @ 74%` | 모달/Drawer 백드롭 |
 
 ### Accent (강조 액센트)
 - `color/accent/background/{redOrange | lime | cyan | lightBlue | violet | purple | pink}`

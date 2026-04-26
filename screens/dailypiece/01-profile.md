@@ -48,20 +48,9 @@ Page (viewport: mobile, 375×918)
 │   │   ├── Slot: divider
 │   │   │   ↳ component: design-systems/wanted/components/17-divider.md
 │   │   ├── Section: ExportRow
-│   │   │   ├── Slot: title
-│   │   │   │   ↳ component: design-systems/wanted/components/16-label.md
-│   │   │   ├── Slot: caption
-│   │   │   │   ↳ component: design-systems/wanted/components/16-label.md
-│   │   │   └── Slot: trigger
-│   │   │       ↳ component: design-systems/wanted/components/09-icon-button.md
-│   │   ├── Section: ThemeRow
-│   │   │   ├── Slot: title
-│   │   │   │   ↳ component: design-systems/wanted/components/16-label.md
-│   │   │   ├── Slot: caption
-│   │   │   │   ↳ component: design-systems/wanted/components/16-label.md
-│   │   │   └── Slot: control
-│   │   │       ↳ component: design-systems/wanted/components/13-switch.md
-│   │   └── (조건: 추가 row) — App Theme 표시
+│   │   │   ↳ component: design-systems/wanted/components/24-list-item.md (variant: nested-action)
+│   │   └── Section: ThemeRow
+│   │       ↳ component: design-systems/wanted/components/24-list-item.md (variant: with-control)
 │   ├── Section: AccountGroup
 │   │   ├── Slot: groupTitle
 │   │   │   ↳ component: design-systems/wanted/components/16-label.md
@@ -151,42 +140,27 @@ Page (viewport: mobile, 375×918)
 
 ##### Section: ExportRow
 
-**Slot: title**
-- text-variant: `text/body1`
-- color: `color/label/normal`
-- content: `Export Data`
-
-**Slot: caption**
-- text-variant: `text/label2`
-- color: `color/label/alternative`
-- content: `Download your archive`
-
-**Slot: trigger**
-- ref: `design-systems/wanted/components/09-icon-button.md`
-- variant: `normal`
-- size: `medium`
-- icon: `chevron-right`
-- aria-label: `Export Data`
+- ref: `design-systems/wanted/components/24-list-item.md`
+- variant: `nested-action`
 - on-tap: `api: GET /export → state: downloading=true`
+
+ListItem 슬롯 바인딩:
+- **leading**: (없음)
+- **content title**: `Export Data` (text/body1, color/label/normal)
+- **content caption**: `Download your archive` (text/label2, color/label/alternative)
+- **trailing**: IconButton (variant=normal, size=medium, icon=chevron-right, aria-label="Export Data")
 
 ##### Section: ThemeRow
 
-**Slot: title**
-- text-variant: `text/body1`
-- color: `color/label/normal`
-- content: `App Theme`
+- ref: `design-systems/wanted/components/24-list-item.md`
+- variant: `with-control`
 
-**Slot: caption**
-- text-variant: `text/label2`
-- color: `color/label/alternative`
-- content: `Dark Mode (locked)` — 현재 화면에서 잠긴 상태
-
-**Slot: control**
-- ref: `design-systems/wanted/components/13-switch.md`
-- size: `medium`
-- value: `{{settings.darkMode}}`
-- disabled: `true` (caption에 "(locked)"라 잠금 상태)
-- on-change: `state: settings.darkMode = $value`
+ListItem 슬롯 바인딩:
+- **leading**: (없음)
+- **content title**: `App Theme`
+- **content caption**: `Dark Mode (locked)` (현재 화면에서 잠긴 상태)
+- **trailing**: Switch (size=medium, value={{settings.darkMode}}, disabled=true)
+- on-change: `state: settings.darkMode = $value` (Switch 토글 시)
 
 #### Section: AccountGroup
 

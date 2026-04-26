@@ -106,10 +106,12 @@ flowchart TD
 
 이번 시범으로 발견된 **wanted DS 보강 후보** (스킬의 자기 발견 기능):
 
-1. ~~**BottomNavigation 컴포넌트 명세**~~ ✅ **완료** ([23-bottom-navigation.md](../../design-systems/wanted/components/23-bottom-navigation.md)). 5/10 화면 모두 component 참조로 전환됨.
-2. **TopNavigation / Sidebar Item** — Profile/Calendar/Modal Header에 사용 가능. wds `top-navigation` 기반 명세 후보.
-3. **List/Setting Row 합성 패턴** — Profile 화면의 Settings 행(title + caption + trigger/control). wds `list-item` 명세화.
-4. **Image Uploader / Photo Picker** — New Piece의 photo 선택 영역. 도메인 친화 합성 컴포넌트 후보.
+1. ~~**BottomNavigation 컴포넌트 명세**~~ ✅ **완료** ([23-bottom-navigation.md](../../design-systems/wanted/components/23-bottom-navigation.md))
+2. ~~**TopNavigation 컴포넌트 명세**~~ ✅ **완료** ([25-top-navigation.md](../../design-systems/wanted/components/25-top-navigation.md))
+3. ~~**ListItem 합성 컴포넌트**~~ ✅ **완료** ([24-list-item.md](../../design-systems/wanted/components/24-list-item.md)) — Profile Settings/Theme 행 적용 완료
+4. ~~**Tabs 컴포넌트**~~ ✅ **완료** ([26-tabs.md](../../design-systems/wanted/components/26-tabs.md))
+5. **Image Uploader / Photo Picker** — New Piece의 photo 선택 영역. 도메인 친화 합성 컴포넌트 후보.
+6. **foundations 보강 발견**: validate_screen.py로 누락된 토큰 2개 발견 → `color/primary/subtle`, `color/fill/alternative`를 foundations/00-color.md에 정식 추가 완료.
 
 ---
 
