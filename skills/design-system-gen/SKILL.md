@@ -17,6 +17,9 @@ description: Extract and document design systems (foundations and components) fr
 사용자가 제공한 입력의 종류를 먼저 판별합니다.
 - **(A) HTML/CSS 코드 또는 디자인 설명** → Phase 1A로 진행
 - **(B) Figma URL** (`figma.com/design/...`, `figma.com/file/...`) → Phase 1B로 진행 (Figma MCP 사용)
+- **(C) Source Code Repository** (GitHub 레포 URL 또는 로컬 클론) → Phase 1C로 진행 — 토큰/컴포넌트가 코드로 정의된 가장 정확한 입력
+
+> **사전 확인 (Optional)**: 사용자가 (A) 또는 (B)를 제시했더라도, 해당 디자인 시스템이 **OSS로 공개된 코드 레포가 있는지 한 번 물어보세요**. 있다면 (C)로 전환하는 게 압도적으로 효율적입니다 (Figma 호출 한도 무시, 100% 정확). 한국 사례: wanted/montage-web, toss/slash, daangn-design-system 등. 사용자가 모르면 "GitHub에서 회사명 + design-system 검색해보시겠어요?" 정도만 제안하고 없으면 원래 분기로 진행.
 
 ### Phase 0.5: 스캐폴드 생성 (Scaffold)
 Phase 1로 들어가기 전에, 결과물 디렉토리의 베이스 구조를 [`assets/scaffold/`](assets/scaffold/)에서 복사하여 만듭니다. 이 단계는 모든 인스턴스가 동일한 디렉토리 구조와 운영 문서(README/AGENTS/docs)를 갖도록 보장합니다.
@@ -55,6 +58,25 @@ Figma URL이 주어진 경우, Figma MCP의 도구를 사용해 디자인 시스
 3. **컴포넌트 인덱스** — `mcp__claude_ai_Figma__search_design_system` 또는 `get_metadata`로 컴포넌트/세트 목록을 가져옵니다. 컴포넌트 수가 많으면 사용자에게 어떤 항목을 문서화할지 **반드시 확인**하세요 (한 번에 전체 처리는 비효율).
 4. **컴포넌트별 컨텍스트** — 선택된 각 컴포넌트에 대해 `mcp__claude_ai_Figma__get_design_context` + `get_screenshot`을 호출하여 variants/states/anatomy를 추출합니다.
 5. **토큰 폴백** — Variables가 없거나 raw hex/absolute layout이 다수면, 스크린샷 + Phase 1A의 휴리스틱으로 폴백합니다. 이 경우 환원율이 낮음을 사용자에게 명시적으로 경고하세요.
+
+### Phase 1C: 코드 레포 기반 추출 (Discovery — Source Repository)
+GitHub URL 또는 로컬 경로가 주어진 경우, 코드를 직접 읽어 토큰과 컴포넌트를 추출합니다. 디자이너 의도가 코드로 박제된 상태이므로 휴리스틱이 거의 필요 없습니다.
+
+**클론**:
+- 공개 레포: `git clone --depth 1 <url> /tmp/<repo-name>` (얕은 클론으로 충분)
+- 작업 종료 후 정리 (`rm -rf`) 권장 — 결과물에 소스 코드 포함하지 않음
+
+**탐색 순서**:
+1. **README / package.json** — 모노레포 여부, 패키지 구조 파악
+2. **테마/토큰 패키지 식별** — `theme`, `tokens`, `design-tokens`, `foundations` 키워드로 디렉토리 탐색
+3. **토큰 파일 분석** — TS/JS export, JSON, CSS 변수, Tailwind config 등 형식별로 직접 매핑
+4. **컴포넌트 패키지 식별** — `components`, `ui`, `lib` 등에서 카탈로그 추출
+5. **`types.ts` / Props 타입** — variant/size/state를 가장 정확하게 알려주는 1차 소스
+6. **`style.ts` / CSS-in-JS / className** — 실제 토큰 참조 패턴 추출
+
+**휴리스틱 폴백**: 토큰이 코드로 명시적이지 않은 부분(예: inline `border-radius: 12px`)은 [heuristics_html_css.md](references/heuristics_html_css.md)의 군집화 규칙으로 표준 단계로 환원합니다. 추정 토큰은 foundations 명세에 "Inferred" 라벨 명시.
+
+**출처 기록**: README.md "출처" 섹션에 레포 URL, 라이선스, 분석 패키지 경로를 명시합니다 (재현성 확보).
 
 ### Phase 2: 파운데이션 수립 (Foundations)
 추출된 토큰을 `foundations/` 디렉토리에 명세화합니다.
