@@ -59,13 +59,29 @@ Figma URL이 주어진 경우, Figma MCP의 도구를 사용해 디자인 시스
 - **토큰 명명 규칙**: [references/token_naming.md](references/token_naming.md) 가이드를 따릅니다.
 
 ### Phase 3: 컴포넌트 명세 작성 (Components)
-UI 요소(Button, Input, Card 등)를 식별하여 `components/` 디렉토리에 명세화합니다.
-- `components/TEMPLATE.md` 형식을 엄격히 준수하세요.
-- **상태 정의**: Hover, Active, Focus, Disabled 상태에 따른 토큰 변화를 기술합니다.
+
+> ⚠️ **이 단계는 단발성 작업이 아니라 체크리스트 루프입니다.** 모든 항목이 결정될 때까지 반복합니다.
+
+**3.1 표준 카탈로그 순회 — 체크리스트 루프**
+[references/component_checklist.md](references/component_checklist.md)의 표준 카탈로그(Tier 1 → Tier 2 → Tier 3)를 위에서부터 끝까지 순회합니다. 각 항목에 대해 반드시 다음 셋 중 하나로 결정을 내리고, **미결정 항목이 단 하나라도 있으면 Phase 3을 종료할 수 없습니다**:
+- ✅ **Documented** — `components/NN-xxx.md` 작성 완료
+- ⏭️ **Skipped (reason)** — 의도적 제외, 사유 명시
+- ⛔ **N/A** — 도메인 무관 (단 Tier 1은 N/A 불가)
+
+**3.2 컴포넌트별 명세 작성**
+각 Documented 항목을 작성할 때:
+- `components/TEMPLATE.md` 형식을 엄격히 준수합니다.
+- [references/state_matrix.md](references/state_matrix.md)의 해당 카테고리 행에서 ■(필수) 표시된 모든 상태를 누락 없이 명세합니다. 누락된 ■ 항목이 있으면 컴포넌트 작성을 끝내지 않습니다.
 - **변형(Variants)**: Primary, Secondary, Ghost 등 디자인 옵션을 분류합니다.
+- **모션 토큰**: 상태 전환에 `motion/*` 토큰 참조를 명시합니다.
+
+**3.3 인덱스 보고**
+Phase 3을 닫기 전에 `components/00-INDEX.md`에 체크리스트 결과를 표로 보고합니다 (형식은 [component_checklist.md](references/component_checklist.md#-결과-보고-형식) 참조). 이 인덱스는 결과물 완결성의 증거이자 후속 작업자의 진입점입니다.
 
 ### Phase 4: 품질 검증 및 브릿지 (Validation & Bridge)
 - **디자인 품질**: [references/quality_criteria.md](references/quality_criteria.md)의 4대 기준을 스스로 평가하고 피드백합니다.
+- **체크리스트 완결성**: `components/00-INDEX.md`의 모든 행이 ✅/⏭️/⛔로 결정되어 있는지 확인합니다. 빈 행이 있으면 Phase 3로 되돌아갑니다.
+- **상태 매트릭스 준수**: 각 컴포넌트가 [state_matrix.md](references/state_matrix.md)의 ■(필수) 항목을 모두 다뤘는지 점검합니다.
 - **토큰 환원율 (Token Coverage)**: foundations Semantic Token으로 환원되지 못한 raw hex/픽셀 값의 개수를 집계해 사용자에게 리포트합니다. 신뢰도의 핵심 지표입니다.
 - **Figma Make**: 각 컴포넌트 하단에 디자이너가 바로 활용할 수 있는 상세한 Figma 생성 프롬프트를 포함합니다.
 
@@ -75,3 +91,5 @@ UI 요소(Button, Input, Card 등)를 식별하여 `components/` 디렉토리에
 - **No Magic Numbers**: 모든 수치는 `foundations`의 스페이싱/폰트 시스템 내의 값으로 치환하십시오.
 - **Accessible Design**: 명암비 및 키보드 접근성(Focus Ring) 명세를 반드시 포함하세요.
 - **Figma 우선순위**: Figma 입력의 경우 Variables → Component metadata → Screenshot 휴리스틱 순으로 신뢰합니다. Variables로 환원 가능한 값을 절대 raw hex로 적지 마세요.
+- **체크리스트 우선**: Phase 3는 [component_checklist.md](references/component_checklist.md)의 모든 항목이 결정될 때까지 종료할 수 없습니다. 단발 추출이 아닌 루프로 동작합니다.
+- **상태 매트릭스 강제**: 컴포넌트 명세는 [state_matrix.md](references/state_matrix.md)의 ■ 표시 상태를 모두 포함해야 합니다.
