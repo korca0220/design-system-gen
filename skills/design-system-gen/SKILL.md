@@ -74,6 +74,7 @@ Figma URL이 주어진 경우, Figma MCP의 도구를 사용해 디자인 시스
 - [references/state_matrix.md](references/state_matrix.md)의 해당 카테고리 행에서 ■(필수) 표시된 모든 상태를 누락 없이 명세합니다. 누락된 ■ 항목이 있으면 컴포넌트 작성을 끝내지 않습니다.
 - **변형(Variants)**: Primary, Secondary, Ghost 등 디자인 옵션을 분류합니다.
 - **모션 토큰**: 상태 전환에 `motion/*` 토큰 참조를 명시합니다.
+- ⚠️ **컨테이너 컴포넌트 가드 (Modal/Drawer/Popover/Tooltip/Accordion/Tabs)**: "헤더/본문/푸터" 같은 구조 설명이나 동작 산문(prose)으로 상태를 갈음하지 마세요. 반드시 `components/TEMPLATE.md`의 **상태 표 형식**(`| 상태 | 시각 표현 / 변경 토큰 | 모션 토큰 |`)으로 Closed/Open/Focus Trap/Backdrop/Motion 등 [state_matrix.md](references/state_matrix.md)의 해당 행을 그대로 표 한 줄씩 채워야 합니다. 동작 설명은 표와 별개의 **접근성 섹션**으로 분리합니다.
 
 **3.3 인덱스 보고**
 Phase 3을 닫기 전에 `components/00-INDEX.md`에 체크리스트 결과를 표로 보고합니다 (형식은 [component_checklist.md](references/component_checklist.md#-결과-보고-형식) 참조). 이 인덱스는 결과물 완결성의 증거이자 후속 작업자의 진입점입니다.

@@ -20,6 +20,17 @@
 
 ---
 
+## 상태 (State) 및 인터랙션
+
+| 상태 | 시각 표현 / 변경 토큰 | 모션 토큰 |
+|---|---|---|
+| Hidden | 렌더되지 않음 (또는 opacity 0) | — |
+| Visible (Hover) | 트리거 호버 후 ~500ms 지연 후 등장 | `motion/fade` (200ms) |
+| Visible (Focus) | 트리거 키보드 포커스 시 즉시 등장 | `motion/fade` (200ms) |
+| Closing | 호버/포커스 해제 시 즉시 퇴장 | `motion/fade` (200ms) |
+
+---
+
 ## 위치
 
 ### 상단 (기본)
@@ -44,6 +55,7 @@
 - 툴팁 요소에 `role="tooltip"` 사용
 - 트리거는 `aria-describedby`로 툴팁 ID 참조
 - 키보드 접근성 필수 (포커스 시 표시)
+- Esc 키로 즉시 닫기 (포커스 유지)
 
 ---
 

@@ -20,6 +20,18 @@
 
 ---
 
+## 상태 (State) 및 인터랙션 (개별 탭)
+
+| 상태 | 시각 표현 / 변경 토큰 | 모션 토큰 |
+|---|---|---|
+| Default (비활성) | 텍스트 `color/text/tertiary`, 인디케이터 없음 | — |
+| Hover | 텍스트 `color/text/secondary` | 150ms ease-out |
+| Focus | `shadow/focus` 링 (필수) | — |
+| Selected (활성) | 텍스트 `color/text/primary`, 2px 하단 보더 `color/primary/default` | 150ms ease-out |
+| Disabled | 불투명도 0.4, pointer-events: none | — |
+
+---
+
 ## 변형
 
 ### 언더라인 (기본)

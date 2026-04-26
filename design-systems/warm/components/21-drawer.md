@@ -32,9 +32,31 @@
 
 ---
 
+## 상태 (State) 및 인터랙션
+
+| 상태 | 시각 표현 / 변경 토큰 | 모션 토큰 |
+|---|---|---|
+| Closed | 렌더 트리 외부 (translateX(100%) 또는 unmount) | — |
+| Open | 패널 표시 + 오버레이 표시 (`color/surface/overlay`) | `motion/page` (슬라이드 인) |
+| Closing | 패널 슬라이드 아웃 + 오버레이 페이드 아웃 | `motion/page` (슬라이드 아웃) |
+| Focus Trap | 드로어 내부 포커스 가능 요소 사이만 순환 | — |
+| Backdrop | `color/surface/overlay` | `motion/fade` |
+
+---
+
 ## 위치
 - **우측** (기본): 우측 가장자리에서 슬라이드 인
 - **하단** (모바일): 하단에서 슬라이드 업 (바텀 시트)
+
+---
+
+## 접근성 (Accessibility)
+- `role="dialog"`, `aria-modal="true"`
+- **Esc 닫기**: Escape 키로 드로어 닫기
+- **오버레이 클릭**: 오버레이 클릭으로 닫기
+- **Focus Trap**: 드로어 열림 시 첫 포커스 가능 요소로 이동, 내부에서만 Tab 순환
+- **배경 스크롤 락**: 드로어 열린 동안 `<body>` 스크롤 잠금
+- **이전 포커스 복원**: 닫힐 때 트리거 요소로 포커스 복귀
 
 ---
 
