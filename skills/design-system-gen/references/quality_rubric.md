@@ -64,9 +64,14 @@
 
 **자동 점검 항목**:
 - [ ] 모든 spacing 값이 [heuristics_html_css.md](heuristics_html_css.md)의 표준 스케일에 포함됨 (또는 명시적 사유)
-- [ ] 폰트 사이즈가 5~9단계 사이
-- [ ] `color/text/primary` × `color/surface/1` 명암비 ≥ 7:1 (AAA 권장)
-- [ ] `color/text/secondary` × `color/surface/1` 명암비 ≥ 4.5:1 (AA)
+- [ ] 폰트 사이즈가 5~9단계 사이 (위계가 풍부한 시스템은 의도된 초과 허용 — 그 사유를 quality_report에 명시)
+- [ ] **명암비 자동 검증** — [scripts/check_contrast.py](../scripts/check_contrast.py)를 실행하여 핵심 색상 페어를 검증:
+  - `color/text/primary` × `color/surface/1` (Light/Dark 둘 다) ≥ 7:1 (AAA 권장)
+  - `color/text/secondary` × `color/surface/1` (Light/Dark 둘 다) ≥ 4.5:1 (AA)
+  - `color/primary/normal` 위 텍스트 (보통 white) ≥ 4.5:1
+  - `color/text/disabled` × `color/surface/1` ≥ 3:1 (큰 텍스트 기준)
+  - 검증 페어를 `design-systems/{brand}/contrast_pairs.txt`로 작성 후 `python3 skills/design-system-gen/scripts/check_contrast.py design-systems/{brand}/contrast_pairs.txt` 실행
+  - 실패가 0이어야 ✅. 결과를 `quality_report.md`에 첨부.
 - [ ] 모든 인터랙티브 컴포넌트에 `shadow/focus` 또는 동등 outline 명세
 
 ---
@@ -81,6 +86,8 @@
 | 2 | ≥ 95% 컴포넌트가 ■ 상태 충족, 일부 누락 |
 | 1 | 절반 이상 컴포넌트가 상태 누락 또는 접근성 섹션 부재 |
 | 0 | Hover/Focus/Disabled 같은 기본 상태가 거의 명세되지 않음 |
+
+> **부분 처리 (Partial Instance) 보정 규칙**: 시범/단계적 작업으로 Tier 1 일부만 ✅ Documented이고 나머지가 ⏳ Pending인 경우, **"명세된 컴포넌트들 자체의 품질"로만 채점**합니다. 미명세 컴포넌트의 부재는 Functionality 점수가 아닌 **별도 "Completeness 점수"**로 분리해 보고합니다 (아래 합격선 섹션 참조). 이렇게 하면 "잘 만든 8개"가 "급하게 만든 18개"보다 점수가 낮아지는 역설을 방지합니다.
 
 **자동 점검 항목**:
 - [ ] `components/00-INDEX.md`의 모든 항목이 ✅/⏭️/⛔로 결정됨
@@ -109,17 +116,30 @@ Phase 4 종료 시 다음 형식으로 `design-systems/{brand}/quality_report.md
 | Functionality | _/3 | [한 줄 평가] |
 | **합계** | **_/12** | |
 
+## Completeness
+- Tier 1: _ / _ ✅
+- Tier 2: _ / _ ✅
+- 환산 비율: _% → **{{Full | High | Mid | Pilot | Skeleton}}** 등급
+
 ## 자동 점검 결과
 [각 기준의 자동 점검 체크박스 결과]
 
+## 명암비 검증
+- 검증 페어 파일: `contrast_pairs.txt`
+- 통과 / 전체: _ / _
+- 실패 페어: [없음 또는 목록]
+- 실행 명령: `python3 skills/design-system-gen/scripts/check_contrast.py contrast_pairs.txt`
+
 ## 토큰 환원율
-- Primitive 토큰 수: _
-- Semantic 토큰 수: _
-- 컴포넌트 명세에서 raw hex/픽셀 등장 수: _
+- Semantic 토큰 참조 수: _
+- 컴포넌트 명세에서 raw hex/픽셀 등장 수 (Figma Make 블록 제외): _
 - **환원율: _% ** (기준: ≥ 80% 권장, < 60%면 경고)
 
 ## 개선 권고
 [1점 이하 항목에 대한 구체적 권고. 없으면 "없음"]
+
+## 합격선 판정
+[Production-ready / Production-ready (with caveats) / 검수 필요 — 사유와 함께]
 ```
 
 ---
@@ -131,6 +151,27 @@ Phase 4 종료 시 다음 형식으로 `design-systems/{brand}/quality_report.md
 - 4대 기준 합계 점수 < 8/12
 - 어느 한 기준이라도 ≤ 1
 - Functionality의 자동 점검 항목 중 미통과 존재
+- **명암비 자동 검증 실패** ([check_contrast.py](../scripts/check_contrast.py) 종료 코드 ≠ 0)
 - 토큰 환원율 < 60%
 
 합격선을 통과해야 결과물이 "production-ready"로 분류됩니다.
+
+---
+
+## 📈 Completeness 점수 (부분 처리 인스턴스용)
+
+부분 처리 인스턴스(Tier 1 일부만 ✅)는 합격선과는 별도로 **Completeness 점수**를 보고합니다 — *"이 시스템이 얼마나 완성됐는가"*를 별도 차원으로 추적.
+
+```
+Completeness = (✅ Documented 수) / (✅ + ⏳ Pending 수, ⛔ N/A는 분모 제외)
+```
+
+| 등급 | 비율 | 분류 |
+|---|---|---|
+| Full | 100% | "production-ready" 필수 조건 |
+| High | ≥ 80% | "production-ready (with caveats)" |
+| Mid | 50~79% | "preview" — 핵심은 됐으나 보강 필요 |
+| Pilot | 25~49% | "시범 단계" — 흐름 검증 목적 |
+| Skeleton | < 25% | "scaffold only" — 더 작업 필요 |
+
+`quality_report.md`의 "합격선 판정" 섹션에 4대 기준 점수와 함께 Completeness 등급도 명시합니다.
